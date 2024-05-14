@@ -1,0 +1,229 @@
+.login {
+  display: flex;
+  /* height: screen; */
+  min-height: 700px;
+  background-color: white;
+}
+.loginFormContainer {
+  width: 65%;
+  height: screen;
+  min-height: 700px;
+  background: white;
+  /* background: linear-gradient(45deg, #122285, #03071c); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginFormContainer form {
+  height: 70%;
+  width: 70%;
+  /* background-color: #03071c72; */
+  background: #cfe6fa;
+  border-radius: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginFormContainer form h1 {
+  color: black;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 50px;
+  font-family: "Nova Cut", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  margin: 0px;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 60%;
+  border: 2px solid #000;
+  padding: 5px 10px;
+  border-radius: 50px;
+  margin-top: 30px;
+}
+.input input {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  color: black;
+  font-size: 20px;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  outline: none;
+}
+.rememberMeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60%;
+  margin-top: 20px;
+}
+
+.earthContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: screen; */
+  min-height: 700px;
+  /* background: linear-gradient(225deg, #122285, #03071c 100%); */
+  background: transparent;
+  width: 35%;
+  /* background-image: url("/assets/bg.webp"); */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+  /* background-position: center; */
+  overflow: hidden;
+}
+
+.earthOverlay {
+  background: transparent;
+
+  /* background: linear-gradient(45deg, #03071cd7, #122185c0 100%); */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+@media (max-width: 999px) {
+  .loginFormContainer {
+    width: 100%;
+  }
+  .earthContainer {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .loginFormContainer form h1 {
+    font-size: 50px;
+  }
+  .input {
+    width: 90%;
+  }
+  .rememberMeContainer {
+    width: 90%;
+  }
+  .loginFormContainer form {
+    width: 100%;
+    margin: 0px 20px;
+    border-radius: 20px;
+  }
+}
+
+.earthOverlay span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: #000;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1),
+    0 0 0 8px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 0.1);
+  animation: animate 6s linear infinite;
+}
+.earthOverlay span::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  height: 1px;
+  background: linear-gradient(90deg, #000, transparent);
+}
+@keyframes animate {
+  0% {
+    transform: rotate(315deg) translateX(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(315deg) translateX(-1000px);
+    opacity: 0;
+  }
+}
+.earthOverlay span:nth-child(1) {
+  top: 0;
+  right: 0;
+  left: initial;
+  animation-delay: 0s;
+  animation-duration: 2s;
+}
+.earthOverlay span:nth-child(2) {
+  top: 0;
+  right: 80px;
+  left: initial;
+  animation-delay: 1s;
+  animation-duration: 6s;
+}
+.earthOverlay span:nth-child(3) {
+  top: 80;
+  right: 0px;
+  left: initial;
+  animation-delay: 2s;
+  animation-duration: 2s;
+}
+.earthOverlay span:nth-child(4) {
+  top: 0;
+  right: 180px;
+  left: initial;
+  animation-delay: 3s;
+  animation-duration: 1.5s;
+}
+.earthOverlay span:nth-child(5) {
+  top: 0;
+  right: 400px;
+  left: initial;
+  animation-delay: 4s;
+  animation-duration: 2.5s;
+}
+.earthOverlay span:nth-child(6) {
+  top: 0;
+  right: 600px;
+  left: initial;
+  animation-delay: 2s;
+  animation-duration: 6s;
+}
+.earthOverlay span:nth-child(7) {
+  top: 300px;
+  right: 0px;
+  left: initial;
+  animation-delay: 5s;
+  animation-duration: 1.75s;
+}
+.earthOverlay span:nth-child(8) {
+  top: 0px;
+  right: 700px;
+  left: initial;
+  animation-delay: 6s;
+  animation-duration: 1.25s;
+}
+.earthOverlay span:nth-child(9) {
+  top: 0px;
+  right: 1000px;
+  left: initial;
+  animation-delay: 7s;
+  animation-duration: 2.25s;
+}
+.earthOverlay span:nth-child(9) {
+  top: 0px;
+  right: 450px;
+  left: initial;
+  animation-delay: 8s;
+  animation-duration: 2.75s;
+}
