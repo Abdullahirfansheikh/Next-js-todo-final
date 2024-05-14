@@ -215,13 +215,14 @@ const Page: React.FC = () => {
             </div>
             <div className='width-full height-full'>            
     <h1 className='mt-10 mb-10 text-center font-bold text-2xl'> COMPLETED</h1>
-    {completed.map((t: Task, i: number) => (
-        <div key={i} className='justify-around flex mb-2'>
-            <h2>{t.title}</h2>
-            <h2>{t.desc}</h2>
-            <button className='bg-blue-500 border-2 rounded text-white mb-4 p-1 mx-4 text-xl border-black border-solid' onClick={() => eventHandler3(i)}>Delete</button>
-        </div>
-    ))}
+    {completed && completed.map((t: Task, i: number) => (
+    <div key={i} className='justify-around flex mb-2'>
+        <h2>{t.title}</h2>
+        <h2>{t.desc}</h2>
+        <button className='bg-blue-500 border-2 rounded text-white mb-4 p-1 mx-4 text-xl border-black border-solid' onClick={() => eventHandler3(i)}>Delete</button>
+    </div>
+))}
+
 </div>
 </div>
 
