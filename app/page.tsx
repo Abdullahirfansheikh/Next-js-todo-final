@@ -69,16 +69,21 @@ const Page: React.FC = () => {
             localStorage.setItem("sdata2", sdata2);
         }
     }, [completed]);
-    useEffect(() => {
-        const rdata = localStorage.getItem("sdata")!;
-        const fdata = JSON.parse(rdata);
-            setMainTask(fdata);
 
-        const rdata2 = localStorage.getItem("sdata2")!;
+
+useEffect(() => {
+    const rdata = localStorage.getItem("sdata");
+    if (rdata) {
+        const fdata = JSON.parse(rdata);
+        setMainTask(fdata);
+    }
+
+    const rdata2 = localStorage.getItem("sdata2");
+    if (rdata2) {
         const fdata2 = JSON.parse(rdata2);
-            setcompleted(fdata2);
-    }, [])
-    
+        setcompleted(fdata2); // Fixed typo: Changed setMainTask to setcompleted
+    }
+}, []);
     
     
 
@@ -93,7 +98,7 @@ const Page: React.FC = () => {
         let copyMainTask = [...mainTask];
         let completedTask = copyMainTask.splice(i, 1)[0];
         setMainTask(copyMainTask);
-        setcompleted(prevCompleted => [...prevCompleted, completedTask]); // Corrected state update
+        setcompleted(prevCompleted => [...prevCompleted, completedTask]);
         removeL("sdata", i);
         removeL("sdata2", i);
     };
