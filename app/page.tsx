@@ -128,6 +128,12 @@ useEffect(() => {
         }
     }, [mainTask, username]);
     
+    useEffect(() => {
+        if (username) {
+            const userCompletedTasks = completed.filter(task => task.assignedTo === username);
+            setcompleted(userCompletedTasks);
+        }
+    }, [username, completed]);
 
 
     let sample: JSX.Element = <h2>No Task Available</h2>;
