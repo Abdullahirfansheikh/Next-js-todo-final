@@ -28,18 +28,22 @@ const Page: React.FC = () => {
 
     const [username, setUsername] = useState<string | null>(null);
     const [tasks, setTasks] = useState<Task[]>([]);
-
+    const [userCompletedTasks, setUserCompletedTasks] = useState<Task[]>([]);
     const [loading, setLoading] = useState(true);
 
 
     const logout = () => {
-        // Clear user-related data from localStorage or wherever it's stored
+        // Clear only user-related data from localStorage
+        localStorage.removeItem(`sdata_${username}`); // Remove tasks associated with the current user
+        localStorage.removeItem(`sdata2_${username}`); // Remove completed tasks associated with the current user
         localStorage.removeItem('token');
         setUsername(null); // Clear the username state
         // You might want to perform additional cleanup or redirection here if needed
         setTasks([])
-        setcompleted([])
+        setUserCompletedTasks([])
     };
+    
+    
 
     const formHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -52,38 +56,39 @@ const Page: React.FC = () => {
     };
 
     useEffect(() => {
-    
         if (mainTask.length === 0) {
-          console.log("Array is empty!")
+            console.log("Array is empty!")
         } else {
-            const sdata = JSON.stringify(mainTask)
-            localStorage.setItem("sdata",sdata)
+            const sdata = JSON.stringify(mainTask);
+            localStorage.setItem(`sdata_${username}`, sdata); // Store tasks using a key unique to each user
         }
-      }, [mainTask]);
-
-      useEffect(() => {
+    }, [mainTask, username]);
+    
+    useEffect(() => {
         if (completed.length === 0) {
             console.log("Array is empty!");
         } else {
             const sdata2 = JSON.stringify(completed);
-            localStorage.setItem("sdata2", sdata2);
+            localStorage.setItem(`sdata2_${username}`, sdata2); // Store completed tasks using a key unique to each user
         }
-    }, [completed]);
-
-
-useEffect(() => {
-    const rdata = localStorage.getItem("sdata");
-    if (rdata) {
-        const fdata = JSON.parse(rdata);
-        setMainTask(fdata);
-    }
-
-    const rdata2 = localStorage.getItem("sdata2");
-    if (rdata2) {
-        const fdata2 = JSON.parse(rdata2);
-        setcompleted(fdata2); // Fixed typo: Changed setMainTask to setcompleted
-    }
-}, []);
+    }, [completed, username]);
+    
+    useEffect(() => {
+        const rdata = localStorage.getItem(`sdata_${username}`); // Retrieve tasks using the unique key for the current user
+        if (rdata) {
+            const allTasks = JSON.parse(rdata);
+            setMainTask(allTasks);
+        }
+    }, [username]);
+    
+    useEffect(() => {
+        const rdata2 = localStorage.getItem(`sdata2_${username}`); // Retrieve completed tasks using the unique key for the current user
+        if (rdata2) {
+            const fdata2 = JSON.parse(rdata2);
+            setcompleted(fdata2);
+        }
+    }, [username]);
+    
     
     
 
@@ -97,11 +102,14 @@ useEffect(() => {
     const eventHandler2 = (i: number) => {
         let copyMainTask = [...mainTask];
         let completedTask = copyMainTask.splice(i, 1)[0];
+        completedTask.assignedTo = username || ""; // Use an empty string if username is null
         setMainTask(copyMainTask);
         setcompleted(prevCompleted => [...prevCompleted, completedTask]);
         removeL("sdata", i);
         removeL("sdata2", i);
     };
+    
+    
     const eventHandler3 = (i: number) => {
         let copyTask = [...completed];
         copyTask.splice(i, 1);
@@ -127,12 +135,12 @@ useEffect(() => {
             setTasks(userTasks);
         }
     }, [mainTask, username]);
-    
+
     useEffect(() => {
         if (username) {
-            // Filter tasks assigned to the logged-in user
-            const userTasks = completed.filter(task => task.assignedTo === username);
-            setcompleted(userTasks);
+            // Filter completed tasks assigned to the logged-in user
+            const filteredCompletedTasks = completed.filter(task => task.assignedTo === username);
+            setUserCompletedTasks(filteredCompletedTasks);
         }
     }, [completed, username]);
     
@@ -228,7 +236,7 @@ useEffect(() => {
             </div>
             <div className='width-full height-full'>            
     <h1 className='mt-10 mb-10 text-center font-bold text-2xl'> COMPLETED</h1>
-    {completed && completed.map((t: Task, i: number) => (
+    {userCompletedTasks && userCompletedTasks.map((t: Task, i: number) => (
     <div key={i} className='justify-around flex mb-2'>
         <h2>{t.title}</h2>
         <h2>{t.desc}</h2>
